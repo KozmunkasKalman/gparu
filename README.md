@@ -1,6 +1,6 @@
 # GParu
 
-TUI/CLI frontend for [Paru](https://github.com/Morganamilo/paru) AUR helper
+TUI/CLI frontend for the [Paru](https://github.com/Morganamilo/paru) AUR helper
 
 ## Installation
 ``wget https://raw.githubusercontent.com/KozmunkasKalman/gparu/main/install.sh && chmod +x install.sh && ./install.sh``
