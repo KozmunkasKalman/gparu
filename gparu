@@ -1,0 +1,59 @@
+#! /bin/bash
+
+interactive() {
+  read -N 1 -p \
+  "$(printf \
+  'What would you like to do?\n'\
+'[I]nstall packages, '\
+'[U]pdate packages, '\
+'[R]emove packages, '\
+'[C]lear cache '\
+'\n> ')" action &&
+
+  case "$action" in
+    i) INPUT=$(paru -qlS | fzf --multi --bind 'space:toggle' --preview "paru -Sii {1}" --preview-window=right:75% | tr '\n' ' ') && \
+       printf ": ${INPUT}\n" && \
+       paru -S ${INPUT};;
+    u) printf '\n' && paru -Syu;;
+    r) INPUT=$(paru -qQ | fzf --multi --bind 'space:toggle' --preview "paru -Sii {1}" --preview-window=right:75% | tr '\n' ' ') && \
+       printf ": ${INPUT}\n" && \
+       paru -R ${INPUT};;
+    c) paru -Scc;;
+  esac
+}
+
+printhelp() {
+  printf \
+"GParu is a TUI frontend for the Paru AUR helper.\n"\
+"Usage:\n"\
+"  gparu                                - interactive TUI with fzf\n"\
+"  gparu {i install -i -S} [package(s)] - install package(s)\n"\
+"  gparu {u update -u -Syu}             - update installed packages\n"\
+"  gparu {r remove -r -R} [package(s)]  - remove installed package(s)\n"\
+"  gparu {c clear-cache -c -Scc}        - clear cached files\n"\
+"  gparu {h help -h}                    - print this help text"
+}
+
+if [ -n "$1" ]; then # check for arguments
+  case $1 in
+    i|install|-i|-S)
+      if [ -n "$2" ]; then
+        paru -S "${@:2}"
+      else
+        printf "Error: Incorrect usage.\nCorrect usage:\n  gparu {i install -i -S} [package(s)]\nDo \"gparu help\" for further help\n"
+      fi;;
+    u|update|-u|-Syu) paru -Syu;;
+    r|remove|-r|-R)
+      if [ -n "$2" ]; then
+        paru -R "${@:2}"
+      else
+        printf "Error: Incorrect usage.\nCorrect usage:\n  gparu {r remove -r -R} [package(s)]\nDo \"gparu help\" for further help\n"
+      fi;;
+    c|clear-cache|-c|-Scc) paru -Scc;;
+    h|help|-h) printhelp;; 
+    *) printf "Error: Incorrect usage.\nDo \"gparu help\" for help";;
+  esac
+else # if no arguments given, default to interactive
+  interactive
+fi
+
