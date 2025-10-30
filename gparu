@@ -24,7 +24,7 @@ interactive() {
 
 printhelp() {
   printf \
-"GParu is a TUI frontend for the Paru AUR helper.\n"\
+"GParu is a TUI/CLI frontend for the Paru AUR helper.\n"\
 "Usage:\n"\
 "  gparu                                - interactive TUI with fzf\n"\
 "  gparu {i install -i -S} [package(s)] - install package(s)\n"\
