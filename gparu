@@ -3,7 +3,7 @@
 interactive() {
   read -N 1 -p \
   "$(printf \
-  'What would you like to do?\n'\
+'What would you like to do?\n'\
 '[I]nstall packages, '\
 '[U]pdate packages, '\
 '[R]emove packages, '\
@@ -11,11 +11,11 @@ interactive() {
 '\n> ')" action &&
 
   case "$action" in
-    i) INPUT=$(paru -qlS | fzf --multi --bind 'space:toggle' --preview "paru -Sii {1}" --preview-window=right:75% | tr '\n' ' ') && \
+    i) INPUT=$(paru -qlS | fzf --color bw --multi --bind 'space:toggle' --preview "paru -Sii {1}" --preview-window=right:75% | tr '\n' ' ') && \
        printf ": ${INPUT}\n" && \
        paru -S ${INPUT};;
     u) printf '\n' && paru -Syu;;
-    r) INPUT=$(paru -qQ | fzf --multi --bind 'space:toggle' --preview "paru -Sii {1}" --preview-window=right:75% | tr '\n' ' ') && \
+    r) INPUT=$(paru -qQ | fzf --color bw --multi --bind 'space:toggle' --preview "paru -Sii {1}" --preview-window=right:75% | tr '\n' ' ') && \
        printf ": ${INPUT}\n" && \
        paru -R ${INPUT};;
     c) paru -Scc;;
@@ -31,7 +31,7 @@ printhelp() {
 "  gparu {u update -u -Syu}             - update installed packages\n"\
 "  gparu {r remove -r -R} [package(s)]  - remove installed package(s)\n"\
 "  gparu {c clear-cache -c -Scc}        - clear cached files\n"\
-"  gparu {h help -h}                    - print this help text"
+"  gparu {h help -h}                    - print this help text\n"
 }
 
 if [ -n "$1" ]; then # check for arguments
@@ -51,7 +51,7 @@ if [ -n "$1" ]; then # check for arguments
       fi;;
     c|clear-cache|-c|-Scc) paru -Scc;;
     h|help|-h) printhelp;; 
-    *) printf "Error: Incorrect usage.\nDo \"gparu help\" for help";;
+    *) printf "Error: Incorrect usage.\nDo \"gparu help\" for help\n";;
   esac
 else # if no arguments given, default to interactive
   interactive
