@@ -4,7 +4,7 @@ set -e
 
 create_desktop_entry() {
   touch /tmp/gparu.desktop
-  printf "[Desktop Entry]\nVersion=1.0\nType=Application\nExec=$TERMINAL gparu\nIcon=org.xfce.filemanager\nTerminal=true\nName=GParu Package Manager\nComment=Install, update, and remove packages with a TUI\n" > /tmp/gparu.desktop
+  printf "[Desktop Entry]\nVersion=1.0\nType=Application\nExec=gparu\nIcon=org.xfce.filemanager\nTerminal=true\nName=GParu Package Manager\nComment=Install, update, and remove packages with a TUI\n" > /tmp/gparu.desktop
   sudo mv /tmp/gparu.desktop /usr/share/applications/gparu.desktop
 }
 
