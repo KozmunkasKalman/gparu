@@ -6,7 +6,7 @@ TUI/CLI frontend for the [Paru](https://github.com/Morganamilo/paru) AUR helper
 ``wget https://raw.githubusercontent.com/KozmunkasKalman/gparu/main/install.sh && chmod +x install.sh && ./install.sh``
 
 ## Usage
-By default it opens an interactive fzf, unless given arguments
+By default it opens an interactive TUI/CLI with fzf, unless given arguments
 
 ``$ gparu                                - interactive TUI with fzf``
 
